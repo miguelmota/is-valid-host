@@ -1,6 +1,6 @@
 # is-valid-host
 
-> Validates if string is domain or IP address in JavaScript
+> Validates if string is a valid host based on [RFC-7230](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ## Demo
 
@@ -24,10 +24,11 @@ isValidHost('foo.example.com') // true
 isValidHost('bar.foo.example.com') // true
 isValidHost('exa-mple.co.uk') // true
 isValidHost('xn--80ak6aa92e.com') // true
-isValidHost('example.com:3000') // false
-isValidHost('127.0.0.1:3000') // false
+isValidHost('example.com:3000') // true
+isValidHost('127.0.0.1:3000') // true
 isValidHost('exa_mple.com') // false
 isValidHost('-example.com') // false
+isValidHost('-example.com:3000') // false
 ```
 
 View more [examples](./test/test.js).

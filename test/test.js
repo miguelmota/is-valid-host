@@ -1,8 +1,8 @@
-var test = require('tape')
-var isValidHost = require('../')
+const test = require('tape')
+const isValidHost = require('../')
 
-test('is valid host', function(t) {
-  t.plan(80)
+test('is valid host', function (t) {
+  t.plan(86)
 
   // tld and subdomains
   t.equal(isValidHost('example.com'), true)
@@ -19,6 +19,7 @@ test('is valid host', function(t) {
   t.equal(isValidHost('example.a9'), true)
   t.equal(isValidHost('example.9a'), true)
   t.equal(isValidHost('example.99'), true)
+  t.equal(isValidHost('1.1.1.1d'), true)
 
   // invalid tld and subdomains
   t.equal(isValidHost('exa_mple.com'), false)
@@ -62,9 +63,18 @@ test('is valid host', function(t) {
   t.equal(isValidHost('xn--6qq79v.xn--fiqz9s'), true)
   t.equal(isValidHost('xn--ber-goa.com'), true)
 
+  // IPs
+  t.equal(isValidHost('1.1.1.1'), true)
+  t.equal(isValidHost('127.0.0.1'), true)
+
+  // with ports
+  t.equal(isValidHost('example.com:3000'), true)
+  t.equal(isValidHost('127.0.0.1:3000'), true)
+  t.equal(isValidHost('127.0.0.1d:3000'), true)
+  t.equal(isValidHost('127.0.0.1d:90000'), false)
+
   // valid labels
   t.equal(isValidHost('localhost'), true)
-  t.equal(isValidHost('127.0.0.1'), true)
   t.equal(isValidHost('example'), true)
   t.equal(isValidHost('exa-mple'), true)
   t.equal(isValidHost('3434'), true)
@@ -88,8 +98,8 @@ test('is valid host', function(t) {
   t.equal(isValidHost('example..'), false)
   t.equal(isValidHost('..example'), false)
   t.equal(isValidHost('.example'), false)
-  t.equal(isValidHost('example.com:3000'), false)
-  t.equal(isValidHost('127.0.0.1:3000'), false)
+  t.equal(isValidHost('example.com..'), false)
+  t.equal(isValidHost('example..com.'), false)
 
   // contains em-dash
   t.equal(isValidHost('xn–pple-43d.com'), false)
@@ -97,12 +107,12 @@ test('is valid host', function(t) {
   // invalid types
   t.equal(isValidHost(3434), false)
   t.equal(isValidHost({}), false)
-  t.equal(isValidHost(function(){}), false)
+  t.equal(isValidHost(function () {}), false)
 
   // invalid values
   t.equal(isValidHost('foo.example.com*'), false)
-  t.equal(isValidHost(`google.com"\'\"\""\\"\\'test test`), false)
-  t.equal(isValidHost(`google.com.au'"\'\"\""\\"\\'test`), false)
+  t.equal(isValidHost('google.com"\'\"\""\\"\\\'test test'), false)
+  t.equal(isValidHost('google.com.au\'"\'\"\""\\"\\\'test'), false)
   t.equal(isValidHost('...'), false)
   t.equal(isValidHost('.example.'), false)
   t.equal(isValidHost('.example.com'), false)

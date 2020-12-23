@@ -1,11 +1,12 @@
 {
   "name": "is-valid-host",
-  "version": "0.0.1",
-  "description": "Validates if string is domain or IP address in JavaScript",
+  "version": "1.0.0",
+  "description": "Validates if string is a valid host based on RFC-7230.",
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.js",
-    "build:example": "browserify example/main.js -o example/dist/bundle.js"
+    "build:example": "browserify example/main.js -o example/dist/bundle.js",
+    "lint": "standard --fix index.js test/*.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,13 @@
     "wildcard",
     "hostname",
     "host",
-    "rfc1123"
+    "rfc7239",
+    "rfc1123",
+    "rfc3696",
+    "rfc952",
+    "rfc1034",
+    "rfc1738",
+    "rfc4697"
   ],
   "author": {
     "name": "Miguel Mota",
@@ -39,6 +46,7 @@
   "homepage": "https://github.com/miguelmota/is-valid-host",
   "devDependencies": {
     "browserify": "^16.2.3",
+    "standard": "^16.0.3",
     "tape": "^4.9.2"
   },
   "testling": {
