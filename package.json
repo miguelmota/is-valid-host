@@ -1,8 +1,9 @@
 {
   "name": "is-valid-host",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Validates if string is a valid host based on RFC-7230.",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "tape test/*.js",
     "build:example": "browserify example/main.js -o example/dist/bundle.js",
